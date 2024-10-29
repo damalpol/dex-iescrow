@@ -11,6 +11,7 @@ const app = express();
 
 // serve your css as static
 //app.use(express.static(__dirname));
+app.use(express.static('images'))
 // get our app to use body parser 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
