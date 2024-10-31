@@ -7,11 +7,12 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const User = require('./models/user');
 const Account = require('./models/account');
+const Wallet = require('./models/wallet');
+const Coin = require('./models/coin');
 const app = express();
 
 // serve your css as static
 //app.use(express.static(__dirname));
-app.use(express.static('images'))
 // get our app to use body parser 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -146,7 +147,7 @@ app.get('/accounts/user/:userId', async (req, res) => {
     }
 });
 
-// Read account
+// Read account details
 app.get('/accounts/account/:userId', async (req, res) => {
     try {
         const account = await Account.find({ _id: req.params.userId });
@@ -156,6 +157,64 @@ app.get('/accounts/account/:userId', async (req, res) => {
     }
 });
 
+// Create wallet
+app.post('/wallets', async (req, res) => {
+    try {
+        const { user, walletAddress, blockchainId, walletAlias } = req.body;
+
+        const newWallet = new Wallet({
+            user,
+            walletAddress,
+            blockchainId,
+            walletAlias,
+        });
+        await newWallet.save();
+        res.status(201).json(newWallet);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// Read all wallets for a user
+app.get('/wallets/user/:userId', async (req, res) => {
+    try {
+        const wallets = await Wallet.find({ user: req.params.userId });
+        res.json(wallets);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+// Create coin
+app.post('/coins', async (req, res) => {
+    try {
+        const { contractAddress, blockchainId, symbol, name, decimals, image } = req.body;
+
+        const newCoin = new Coin({
+            contractAddress,
+            blockchainId,
+            symbol,
+            name,
+            decimals,
+            image,
+        });
+        await newCoin.save();
+        res.status(201).json(newCoin);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// Read all tokens for a network ID
+app.get('/coins/network/:netId', async (req, res) => {
+    try {
+        const coins = await Coin.find({ blockchainId: req.params.netId });
+        res.json(coins);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 
 

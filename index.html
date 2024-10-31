@@ -25,47 +25,36 @@
 
 <body class="font-Montserrat bg-black">
 
-  <img src="./images/rest-api.png" />
+  
 
     <!-- Hero Section -->
-    <section
-        class="flex flex-wrap justify-center items-center relative text-white text-center py-10 bg-cover bg-center">
-
-            <div
-                class="main-head text-white w-full m-0 md:m-10 lg:m-0 md:w-1/3 lg:w-1/2 flex flex-col justify-center items-center gap-10">
-
-                <h1 class="text-3xl text-center lg:text-5xl font-extrabold break-words lg:px-4 mt-6 lg:mt-0">Welcome to
-                    <br>
-                    <span class="text-center text-4xl lg:text-7xl text-cyan-500 glow-text" style="background-image: linear-gradient(to right, cyan, violet);
-                    color: transparent;
-                    -webkit-background-clip: text;
-                    background-clip: text;">DEX iESCROW</span>
-                </h1>
-            </div>  
-    </section>
+ 
 
     <!-- about section -->
     <section id="about" class="shadow-2xl py-16">
         <div class="flex flex-col items-center justify-center mx-5 lg:mx-20 gap-5">
-            <p class="text-4xl lg:text-5xl font-extrabold text-center text-white ">Introducing
-                DEX iESCROW REST APIS</p>
-             <p class="text-2xl lg:text-2xl text-center text-white ">               
-                --- endpoint: <server>/users<br/>
+            <p class="text-4xl lg:text-5xl font-extrabold text-center text-white ">
+                DEX iESCROW REST APIS DOC</p>
+             <p class="text-2xl lg:text-2xl text-center text-white ">  
+             -----------------------------------------------------------<br/>             
+                endpoint: <server>/users<br/>
                 action  : create new users<br/>
                 params  : { username, email, password, blockchainWalletAddress, privateKey, score, enabled }<br/>
                 use     : <br/>
                 curl -X POST http://localhost:8000/users -H "Content-Type: application/json" -d '{"username":"johndoe", "email":"john@example.com", "password":"123456", "blockchainWalletAddress":"0x123456A...", "privateKey":"myPrivateKeyA", "score":0, "enabled":true}'
              </p>   
              <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/users/user/:userId <br/>
+             -----------------------------------------------------------<br/> 
+                endpoint: <server>/users/user/:userId <br/>
                 action  : get user by id<br/>
-                params  : userId<br/>
+                params  : {userId}<br/>
                 use     :   <br/>    
-                curl -X GET http://localhost:8000/users/user/<:userId> -H "Content-Type: application/json"   <br/> 
+                curl -X GET http://localhost:8000/users/user/{userId} -H "Content-Type: application/json"   <br/> 
                 note    : returns [] if not found  <br/>               
              </p>   
             <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/login<br/>
+            -----------------------------------------------------------<br/>  
+                endpoint: <server>/login<br/>
                 action  : login user based on credentials<br/>
                 params  : { email, password }<br/>
                 use     :  <br/>
@@ -73,43 +62,93 @@
                 note    : returns "invalid password/email" "login successful"                            
              </p>   
             <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/users<br/>
+            -----------------------------------------------------------<br/>  
+                endpoint: <server>/users<br/>
                 action  : get all users<br/>
                 params  :<br/>
                 use     :  <br/>
                 curl -X GET http://localhost:8000/users -H "Content-Type: application/json"                             
              </p>   
             <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/accounts<br/>
+            -----------------------------------------------------------<br/>  
+                endpoint: <server>/accounts<br/>
                 action  : create new bank account for userId<br/>
-                params  : { user, name, accountNumber, CBU, alias }<br/>
+                params  : { userId, name, accountNumber, CBU, alias }<br/>
                 use     :  <br/>
-                curl -X POST http://localhost:8000/accounts -H "Content-Type: application/json" -d '{"user":"<USER_ID>","name":"Main Account","accountNumber":"123456789","CBU":"1234567890123456789012","alias":"main_account"}'
+                curl -X POST http://localhost:8000/accounts -H "Content-Type: application/json" -d '{"user":"{userId}","name":"Main Account","accountNumber":"123456789","CBU":"1234567890123456789012","alias":"main_account"}'
              </p>   
             <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/accounts/user/:userId<br/>
+            -----------------------------------------------------------<br/>  
+                endpoint: <server>/accounts/user/:userId<br/>
                 action  : Read all bank accounts for a user<br/>
                 params  : {userId}<br/>
                 use     : <br/>
-                curl -X GET http://localhost:8000/accounts/user/<USER_ID>  -H "Content-Type: application/json"   <br/> 
+                curl -X GET http://localhost:8000/accounts/user/{userId}  -H "Content-Type: application/json"   <br/> 
              </p>     
            <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/accounts/account/:accId<br/> 
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/accounts/account/:accId<br/> 
                 action  : get bank account details<br/> 
                 params  : {accId}<br/> 
                 use     :   <br/> 
-                curl  -X GET  http://localhost:8000/accounts/account/<ACCOUNT_ID>  -H "Content-Type: application/json"                            
+                curl  -X GET  http://localhost:8000/accounts/account/{accId}  -H "Content-Type: application/json"                            
              </p>    
            <p class="text-2xl lg:text-2xl text-center text-white ">
-                --- endpoint: <server>/
-                action  :
-                params  : 
-                use     :                               
-             </p>                                                                                          
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/wallets<br/> 
+                action  : add external wallet address <br/> 
+                params  : {USER_ID,WALLET_ADDRESS,BLOCKCHAIN_ID,WALLET_ALIAS}<br/> 
+                use     :  <br/>
+                curl -X POST http://localhost:8000/wallets -H "Content-Type: application/json" -d '{"user":"66fb110945b92ad1013c16d6", "walletAddress":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "blockchainId":"1", "walletAlias":"Vitalik ETH"}'                           
+             </p>           
+          <p class="text-2xl lg:text-2xl text-center text-white ">
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/wallets/user/:USER_ID<br/> 
+                action  : get all external wallets for user<br/> 
+                params  : {USER_ID}<br/> 
+                use     :  <br/> 
+                curl http://localhost:8000/wallets/user/66fb110945b92ad1013c16d6   -H "Content-Type: application/json"                            
+             </p>       
+             
+             
+          <p class="text-2xl lg:text-2xl text-center text-white ">
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/coins  <br/>
+                action  : add coins/tokens for blockchain network ID <br/>
+                params  : {contractAddress,blockchainId,symbol,name,decimals,image} <br/>
+                use     :   <br/>
+                curl -X POST http://localhost:8000/coins -H "Content-Type: application/json" -d '{"contractAddress":"0x86Fa049857E0209aa7D9e616F7eb3b3B78ECfdb0", "blockchainId":"1", "symbol":"EOS", "name":"EOS", "decimals":18, "image":""}'
+                                             
+             </p>                                                                                                                
+           <p class="text-2xl lg:text-2xl text-center text-white ">
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/coins/network/:NET_ID  <br/>
+                action  :  get all tokens for blockchain network id<br/>
+                params  :  {NET_ID}<br/>
+                use     :   <br/>
+                curl http://localhost:8000/coins/network/1   -H "Content-Type: application/json"
+                                             
+             </p>              
+          <p class="text-2xl lg:text-2xl text-center text-white ">
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/  <br/>
+                action  :  <br/>
+                params  :  <br/>
+                use     :   <br/>
+                                             
+             </p>   
+             
             <p class="text-2xl lg:text-2xl text-center text-white ">
-                              
-             </p>                
-            
+           -----------------------------------------------------------<br/>  
+                endpoint: <server>/  <br/>
+                action  :  <br/>
+                params  :  <br/>
+                use     :   <br/>
+                                             
+             </p>              
+             
+             
+                         
         </div>
     </section>
 
@@ -119,7 +158,7 @@
     <footer class="bg-gray-900 text-white py-4 text-center mt-10">
         <div class="container mx-auto">
             <!-- Disclaimer, social media icons, copyright here -->
-            <p class="text-sm text-white">Copyright DEX iESCROW © 2024. All rights reserved</p>
+            <p class="text-sm text-white">Copyright DEX iESCROW © 2024-2025. All rights reserved</p>
         </div>
     </footer>
 
